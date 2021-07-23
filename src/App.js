@@ -17,10 +17,6 @@ function App() {
 
   const calcAverage = (array) => array.reduce((a, b) => parseInt(a) + parseInt(b)) / array.length;
 
-  const searchStudents = (e) => {
-    setSearchText(e.target.value)
-  }
-
   return (
     <div className='main__container'>
       <div className='students__container'>
@@ -29,10 +25,17 @@ function App() {
           className='search__input'
           placeholder='Search by name'
           value={searchText}
-          onChange={searchStudents}
+          onChange={(e) => setSearchText(e.target.value)}
         />
 
-        {students.map((student) => (
+        {students.filter((student) => {
+          if (searchText === '') {
+            return student
+          } else if (student.firstName.toLowerCase().includes(searchText.toLowerCase()) ||
+            student.lastName.toLowerCase().includes(searchText.toLowerCase())) {
+            return student
+          }
+        }).map((student) => (
           <div className="students" key={student.id}>
             <div className='image__container'>
               <img className='students__image' src={student.pic} alt="avatar of various students"></img>
