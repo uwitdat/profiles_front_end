@@ -1,38 +1,93 @@
-.App {
-  text-align: center;
+:root {
+  --font-primary: "Raleway", sans-serif;
+  --color-gray: rgb(187, 187, 187);
+  --color-gray-light: rgb(212, 212, 212);
+  --color-gray-trans: rgba(187, 187, 187, 0.575);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+html {
+  font-size: 62.5%;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.main__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--color-gray-light);
+}
+
+::-webkit-scrollbar {
+  background-color: rgba(231, 231, 231, 0.404);
+  width: 0.5rem;
+}
+
+.students__container {
+  border-radius: 10px;
+  width: 50vw;
+  height: 80vh;
+  overflow: auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  box-shadow: 0rem 0.2rem 0.3rem rgba(0, 0, 0, 0.37);
+  background-color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.students {
+  border-bottom: 1px solid var(--color-gray-trans);
+  display: flex;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.image__container {
+  padding: 1rem;
+  margin-right: 2rem;
+}
+.students__image {
+  width: 12rem;
+  height: 12rem;
+  border-radius: 50%;
+  border: 1px solid var(--color-gray);
+}
+
+.text__container {
+  padding: 1rem;
+}
+
+.text__container > h3 {
+  font-family: var(--font-primary);
+  font-size: 3rem;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.text__container > p {
+  font-family: var(--font-primary);
+  font-size: 1.5rem;
+  font-weight: 200;
+  margin-left: 2rem;
+}
+
+.search__input {
+  padding: 1.5rem 1rem 1rem 1rem;
+  width: 92%;
+  margin: 0 auto;
+  font-family: var(--font-primary);
+  font-size: 1.7rem;
+  border: none;
+  border-bottom: 1px solid var(--color-gray-trans);
+}
+
+.search__input:focus {
+  outline: none;
+  border-bottom: 1px solid black;
 }
