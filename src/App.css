@@ -2,6 +2,7 @@
   --font-primary: "Raleway", sans-serif;
   --color-gray: rgb(187, 187, 187);
   --color-gray-light: rgb(212, 212, 212);
+  --color-gray-dark: rgb(155, 155, 155);
   --color-gray-trans: rgba(187, 187, 187, 0.575);
 }
 
@@ -60,6 +61,9 @@ html {
 
 .text__container {
   padding: 1rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .text__container > h3 {
@@ -90,4 +94,38 @@ html {
 .search__input:focus {
   outline: none;
   border-bottom: 1px solid black;
+}
+
+.grades__list {
+  margin-top: 2rem;
+  margin-left: 2rem;
+}
+
+.grades__list > li {
+  list-style: none;
+  font-family: var(--font-primary);
+  font-size: 1.5rem;
+  font-weight: 200;
+}
+
+.grades__span {
+  margin-left: 3rem;
+}
+
+.plus-minus {
+  float: right;
+  color: var(--color-gray);
+  user-select: none;
+}
+
+.plus-minus:hover {
+  cursor: pointer;
+}
+
+.hidden {
+  display: none;
+}
+
+.active {
+  display: block;
 }
