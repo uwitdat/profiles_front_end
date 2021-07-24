@@ -8,7 +8,7 @@ function App() {
 
   const [students, setStudents] = useState([])
   const [searchText, setSearchText] = useState('')
-  const [openIndex, setOpenIndex] = useState(-1);
+  const [openIndex, setOpenIndex] = useState([]);
 
   useEffect(() => {
     const fetchStudents = async () => {
@@ -20,11 +20,13 @@ function App() {
 
   const calcAverage = (array) => array.reduce((a, b) => parseInt(a) + parseInt(b)) / array.length;
 
-  const makeHandleClick = i => () => {
-    setOpenIndex(i === openIndex ? -1 : i);
-    console.log(i)
-
-  };
+  const makeHandleClick = (i) => {
+    if (openIndex.includes(i)) {
+      setOpenIndex(openIndex.filter(item => item !== i))
+    } else {
+      setOpenIndex(newArray => [...newArray, i]);
+    }
+  }
 
   return (
     <div className='main__container'>
@@ -51,8 +53,8 @@ function App() {
             </div>
             <div className='text__container'>
               <h3 className='students__title'>{student.firstName} {student.lastName}
-                <span onClick={makeHandleClick(i)} className='plus-minus'>
-                  {openIndex === i ? '\u2795' : '\u2796'}
+                <span onClick={() => makeHandleClick(i)} className='plus-minus'>
+                  {openIndex.includes(i) ? '\u2796' : '\u2795'}
                 </span></h3>
 
               <p>Email: {student.email}</p>
@@ -60,7 +62,7 @@ function App() {
               <p>Skill: {student.skill}</p>
               <p>Average: {calcAverage(student.grades)}%</p>
               <ul className={`grades__list`}>
-                {openIndex === i ?
+                {openIndex.includes(i) ?
                   student.grades.map((grade, idx) => (
                     <li key={idx}>Test {idx + 1}: <span className='grades__span'>{grade}%</span></li>
                   ))
