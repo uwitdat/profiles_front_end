@@ -42,10 +42,8 @@ function App() {
         />
 
         {students.filter((student) => {
-          let [fName, lName] = [student.firstName.toLowerCase(), student.lastName.toLowerCase()];
-          let includesSearch = fName.includes(searchText.toLowerCase()) || lName.includes(searchText.toLowerCase())
-
-          return searchText === '' ? student : (includesSearch ? student : null)
+          let fullName = student.firstName.toLowerCase() + student.lastName.toLowerCase();
+          return searchText !== "" ? (fullName.includes(searchText.split(" ").join("")) ? student : null) : student;
         }).filter((student) => {
           if (tagSearch !== "") {
             let results = student.tags.map((tag) => {
