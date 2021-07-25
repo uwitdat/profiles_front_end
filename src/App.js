@@ -11,6 +11,7 @@ function App() {
 
   const [tagSearch, setTagSearch] = useState('')
 
+
   useEffect(() => {
     const fetchStudents = async () => {
       const studentsRes = await axios.get(url)
@@ -19,11 +20,13 @@ function App() {
     fetchStudents()
   }, [])
 
+
   const calcAverage = (array) => array.reduce((a, b) => parseInt(a) + parseInt(b)) / array.length;
 
   return (
     <div className='main__container'>
       <div className='students__container'>
+
         <input
           type='text'
           className='search__input'
@@ -44,6 +47,7 @@ function App() {
         {students.filter((student) => {
           let fullName = student.firstName.toLowerCase() + student.lastName.toLowerCase();
           return searchText !== "" ? (fullName.includes(searchText.split(" ").join("")) ? student : null) : student;
+
         }).filter((student) => {
           if (tagSearch !== "") {
             let results = student.tags.map((tag) => {
@@ -53,6 +57,7 @@ function App() {
           } else {
             return student;
           }
+
         }).map((student, i) => (
           <ListItem key={i} tagSearch={tagSearch} student={student} setStudents={setStudents} i={i} calcAverage={calcAverage} />
         ))}

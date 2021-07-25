@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const ListItem = ({ student, i, calcAverage, tagSearch, setTagSearch }) => {
+const ListItem = ({ student, i, calcAverage }) => {
   const [openIndex, setOpenIndex] = useState([]);
   const [tag, setTag] = useState('')
   const [tagArray, setTagArray] = useState([])
@@ -77,7 +77,6 @@ const ListItem = ({ student, i, calcAverage, tagSearch, setTagSearch }) => {
           />
         </form>
       </div>
-
     </div >
   )
 }
