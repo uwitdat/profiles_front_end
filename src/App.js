@@ -9,6 +9,8 @@ function App() {
   const [searchText, setSearchText] = useState('')
   const url = 'https://api.hatchways.io/assessment/students'
 
+  const [tagSearch, setTagSearch] = useState('')
+
   useEffect(() => {
     const fetchStudents = async () => {
       const studentsRes = await axios.get(url)
@@ -34,6 +36,8 @@ function App() {
           type='text'
           className='search__input'
           placeholder='Search by tag'
+          value={tagSearch}
+          onChange={(e) => setTagSearch(e.target.value)}
 
         />
 
@@ -42,8 +46,17 @@ function App() {
           let includesSearch = fName.includes(searchText.toLowerCase()) || lName.includes(searchText.toLowerCase())
 
           return searchText === '' ? student : (includesSearch ? student : null)
+        }).filter((student) => {
+          if (tagSearch !== "") {
+            let results = student.tags.map((tag) => {
+              return tag.includes(tagSearch)
+            })
+            return results.includes(true) ? student : null;
+          } else {
+            return student;
+          }
         }).map((student, i) => (
-          <ListItem student={student} i={i} calcAverage={calcAverage} />
+          <ListItem key={i} tagSearch={tagSearch} student={student} setStudents={setStudents} i={i} calcAverage={calcAverage} />
         ))}
       </div>
     </div>

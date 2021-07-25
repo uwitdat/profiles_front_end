@@ -1,10 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-const ListItem = ({ student, i, calcAverage }) => {
+const ListItem = ({ student, i, calcAverage, tagSearch, setTagSearch }) => {
   const [openIndex, setOpenIndex] = useState([]);
-
   const [tag, setTag] = useState('')
   const [tagArray, setTagArray] = useState([])
+  const [studentObj, setStudentObj] = useState(student)
+
+  useEffect(() => {
+    if (!student.tags) {
+      let newStudentObj = studentObj;
+      newStudentObj.tags = tagArray
+      student = newStudentObj
+      setStudentObj(student)
+    }
+  }, [studentObj, tagArray])
 
   const makeHandleClick = (i) => {
     if (openIndex.includes(i)) {
@@ -14,11 +23,20 @@ const ListItem = ({ student, i, calcAverage }) => {
     }
   }
 
-  const handleSubmit = (e, idx) => {
+  const handleOnChange = (e) => {
+    const newValue = e.target.value
+    setTag(newValue)
+  }
+
+  const handleSubmit = (e) => {
     e.preventDefault()
     setTagArray(tagArrayClone => [...tagArrayClone, tag])
+    let newStudentObj = student;
+    newStudentObj.tags.push(tag);
+    setStudentObj(prevState => ({ ...prevState, newStudentObj }))
     setTag('')
   }
+
   return (
     <div className="students" key={student.id}>
       <div className='image__container'>
@@ -43,23 +61,24 @@ const ListItem = ({ student, i, calcAverage }) => {
             null}
         </ul>
         <div className='tag__container'>
-          {tagArray.length > 0 ? tagArray.map((tag, i) => (
-            <span key={i} className='tag__span'>{tag}</span>
-          )) : null}
+          {student.tags?.length > 0 ?
+            student.tags.map((tag, i) => (
+              <span key={i} className='tag__span'>{tag}</span>
+            ))
+            : null}
         </div>
         <form onSubmit={(e) => handleSubmit(e, i)}>
           <input
-            name={`tag_input_${student.id}`}
             type='text'
             placeholder='Add a tag'
             className='tag__input'
             value={tag}
-            onChange={(e) => setTag(e.target.value)}
+            onChange={(e) => handleOnChange(e)}
           />
         </form>
       </div>
 
-    </div>
+    </div >
   )
 }
 
