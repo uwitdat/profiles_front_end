@@ -1,27 +1,31 @@
 import './App.css';
 import { useEffect, useState } from 'react'
-import axios from 'axios';
 import ListItem from './components/ListItem';
 
 
 function App() {
   const [students, setStudents] = useState([])
   const [searchText, setSearchText] = useState('')
-  const url = 'https://api.hatchways.io/assessment/students'
+  const url = 'http://localhost:3001/profiles'
+
 
   const [tagSearch, setTagSearch] = useState('')
 
 
   useEffect(() => {
-    const fetchStudents = async () => {
-      const studentsRes = await axios.get(url)
-      setStudents(studentsRes.data.students)
+    const fetchProfiles = async () => {
+      try {
+        await fetch(url)
+          .then(res => res.json())
+          .then(data => setStudents(data))
+      } catch (err) {
+        console.log(err.message)
+      }
     }
-    fetchStudents()
+    fetchProfiles()
   }, [])
 
 
-  const calcAverage = (array) => array.reduce((a, b) => parseInt(a) + parseInt(b)) / array.length;
 
   return (
     <div className='main__container'>
@@ -59,7 +63,7 @@ function App() {
           }
 
         }).map((student, i) => (
-          <ListItem key={i} tagSearch={tagSearch} student={student} setStudents={setStudents} i={i} calcAverage={calcAverage} />
+          <ListItem key={i} tagSearch={tagSearch} student={student} setStudents={setStudents} i={i} />
         ))}
       </div>
     </div>

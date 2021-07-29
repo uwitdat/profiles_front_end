@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const ListItem = ({ student, i, calcAverage }) => {
+const ListItem = ({ student, i }) => {
   const [openIndex, setOpenIndex] = useState([]);
   const [tag, setTag] = useState('')
   const [tagArray, setTagArray] = useState([])
@@ -40,7 +40,7 @@ const ListItem = ({ student, i, calcAverage }) => {
   return (
     <div className="students" key={student.id}>
       <div className='image__container'>
-        <img className='students__image' src={student.pic} alt="avatar of various students"></img>
+        <img className='students__image' src={student.avatar} alt="avatar of various students"></img>
       </div>
       <div className='text__container'>
         <h3 className='students__title'>{student.firstName} {student.lastName}
@@ -49,13 +49,13 @@ const ListItem = ({ student, i, calcAverage }) => {
           </span></h3>
 
         <p>Email: {student.email}</p>
-        <p>Company: {student.company}</p>
-        <p>Skill: {student.skill}</p>
-        <p>Average: {calcAverage(student.grades)}%</p>
+        <p>Age: {student.age}</p>
+        <p>Interests: {student.skill}</p>
+
         <ul className={`grades__list`}>
           {openIndex.includes(i) ?
-            student.grades.map((grade, idx) => (
-              <li key={idx}>Test {idx + 1}: <span className='grades__span'>{grade}%</span></li>
+            student.interests.map((interest, idx) => (
+              <li key={idx}>Interest {idx + 1}: <span className='grades__span'>{interest}</span></li>
             ))
             :
             null}
