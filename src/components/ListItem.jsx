@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 
-const ListItem = ({ student, i }) => {
+const ListItem = ({ profile, setProfile, student, i, setStudents, students }) => {
   const [openIndex, setOpenIndex] = useState([]);
   const [tag, setTag] = useState('')
+
   const [tagArray, setTagArray] = useState([])
   const [studentObj, setStudentObj] = useState(student)
 
@@ -37,6 +38,27 @@ const ListItem = ({ student, i }) => {
     setTag('')
   }
 
+  const handleAddInterest = async (e, id) => {
+
+    e.preventDefault()
+    try {
+      await fetch(`http://localhost:3001/profiles/${id}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          interests: profile.interests
+        })
+      }).then(res => {
+        return res.json()
+      })
+        .then(data => setStudents([...students, students.interests, data.interests]))
+    } catch (err) {
+      console.log('ERROR', err.message)
+    }
+  }
+
   return (
     <div className="students" key={student.id}>
       <div className='image__container'>
@@ -51,6 +73,8 @@ const ListItem = ({ student, i }) => {
         <p>Email: {student.email}</p>
         <p>Age: {student.age}</p>
         <p>Interests: {student.skill}</p>
+        <p>ID: {student._id}</p>
+
 
         <ul className={`grades__list`}>
           {openIndex.includes(i) ?
@@ -76,12 +100,13 @@ const ListItem = ({ student, i }) => {
             onChange={(e) => handleOnChange(e)}
           />
         </form>
-        <form>
+        <form onSubmit={(e) => handleAddInterest(e, student._id)}>
           <input
             type='text'
             placeholder='Add an interest'
             className='tag__input'
-
+            value={profile.interest}
+            onChange={(e) => setProfile({ ...profile, interests: [e.target.value] })}
           />
         </form>
       </div>
