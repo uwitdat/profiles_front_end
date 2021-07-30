@@ -11,7 +11,7 @@ function App() {
     firstName: '',
     lastName: '',
     email: '',
-    age: 0,
+    age: '',
     avatar: ''
   })
   const url = 'http://localhost:3001/profiles'
@@ -136,9 +136,9 @@ function App() {
             onChange={(e) => setProfile({ ...profile, email: e.target.value })}
           />
           <input
-            type='number'
+            type='test'
             className='input'
-            placeholder='Age'
+            placeholder='Enter your age'
             required='true'
             value={profile.age}
             onChange={(e) => setProfile({ ...profile, age: e.target.value })}
@@ -146,7 +146,7 @@ function App() {
           <input
             type='text'
             className='input'
-            placeholder='Avatar'
+            placeholder='Paste an image URL'
             required='true'
             value={profile.avatar}
             onChange={(e) => setProfile({ ...profile, avatar: e.target.value })}

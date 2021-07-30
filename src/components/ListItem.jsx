@@ -76,6 +76,14 @@ const ListItem = ({ student, i }) => {
             onChange={(e) => handleOnChange(e)}
           />
         </form>
+        <form>
+          <input
+            type='text'
+            placeholder='Add an interest'
+            className='tag__input'
+
+          />
+        </form>
       </div>
     </div >
   )
